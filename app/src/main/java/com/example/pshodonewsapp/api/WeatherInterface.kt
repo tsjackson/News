@@ -1,13 +1,11 @@
 package com.example.pshodonewsapp.api
 
 import com.example.pshodonewsapp.data.NewsDataClass
-import com.example.pshodonewsapp.util.API_KEY
 import retrofit2.Call
 import retrofit2.http.GET
-import retrofit2.http.Headers
+import retrofit2.http.Query
 
 interface WeatherInterface {
-    @Headers("country:us", API_KEY)
-    @GET("/top-headlines")
-    fun getTopNews() : Call<NewsDataClass>
+    @GET("v2/top-headlines")
+    fun getTopNews(@Query("country")country:String, @Query("apiKey")apiKey: String) : Call<NewsDataClass>
 }
