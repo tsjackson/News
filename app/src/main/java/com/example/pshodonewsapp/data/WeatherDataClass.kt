@@ -1,9 +1,7 @@
 package com.example.pshodonewsapp.data
 
 data class NewsDataClass(
-    val articles: List<Article>,
-    val status: String,
-    val totalResults: Int
+    val articles: List<Article>
 )
 
 data class Article(

@@ -1,32 +1,31 @@
 package com.example.pshodonewsapp.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.lifecycle.Observer
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.pshodonewsapp.R
-import com.example.pshodonewsapp.data.NewsDataClass
 import com.example.pshodonewsapp.viewModel.CustomViewModel
 
 class MainActivity : AppCompatActivity() {
-    val customViewModel by lazy { ViewModelProvider(this, object : ViewModelProvider.Factory{
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return CustomViewModel() as T
-        }
+     lateinit var viewModel: CustomViewModel
+    lateinit var recyclerView: RecyclerView
 
-    }).get(CustomViewModel::class.java) }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        customViewModel.getLiveData().observe(this,object: Observer<NewsDataClass>{
-            override fun onChanged(t: NewsDataClass?) {
-                t?.let { updateRecyclerView(it) }
+
+        viewModel = ViewModelProvider(this, object: ViewModelProvider.Factory{
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return CustomViewModel() as T
             }
-        })
-        customViewModel.getData()
-    }
-    fun updateRecyclerView(dataSet: NewsDataClass){
-        //TODO pass to the recyclerViewAdapter
+        }).get(CustomViewModel::class.java)
+
+        viewModel.getData()
+        recyclerView = findViewById(R.id.recyclerView)
+        recyclerView.layoutManager = GridLayoutManager(this,1)
+        recyclerView.adapter = MyBaseAdapter(viewModel.getLiveData())
     }
 }

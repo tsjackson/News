@@ -8,7 +8,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         app:layout_constraintTop_toTopOf="parent"
-        android:id="@+id/rv_recyclerView"
+        android:id="@+id/recyclerView"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
