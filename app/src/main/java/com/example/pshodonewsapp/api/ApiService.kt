@@ -13,5 +13,5 @@ object ApiService{
         .baseUrl(BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
-    val getNewsResults: WeatherInterface = getRetrofit().create(WeatherInterface::class.java)
+    val getNewsResults: NewsInterface = getRetrofit().create(NewsInterface::class.java)
 }

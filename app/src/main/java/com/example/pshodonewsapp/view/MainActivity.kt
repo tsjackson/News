@@ -2,11 +2,13 @@ package com.example.pshodonewsapp.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pshodonewsapp.R
+import com.example.pshodonewsapp.data.NewsDataClass
 import com.example.pshodonewsapp.viewModel.CustomViewModel
 
 class MainActivity : AppCompatActivity() {
@@ -26,6 +28,11 @@ class MainActivity : AppCompatActivity() {
         viewModel.getData()
         recyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = GridLayoutManager(this,1)
-        recyclerView.adapter = MyBaseAdapter(viewModel.getLiveData())
+
+        viewModel.getLiveData().observe(this,object:Observer<NewsDataClass>{
+            override fun onChanged(t: NewsDataClass?) {
+                recyclerView.adapter = MyBaseAdapter(t)
+            }
+        })
     }
 }
